@@ -1,21 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
 export default function ConfirmEmailPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const supabase = createClient();
 
-  const [email, setEmail] = useState(searchParams.get("email") ?? "");
+  const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [resending, setResending] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    setEmail(params.get("email") ?? "");
+  }, []);
 
   const handleVerify = async (event: React.FormEvent) => {
     event.preventDefault();

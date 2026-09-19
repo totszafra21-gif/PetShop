@@ -92,15 +92,19 @@ export default function ShopPage() {
 
             <nav className="hidden md:flex items-center gap-8">
               <Link href="/" className="text-slate-600 hover:text-indigo-600 transition">Home</Link>
-              <Link href="/shop" className="text-indigo-600 font-medium">Shop</Link>
+              <Link href="/pets" className="text-slate-600 hover:text-indigo-600 transition">Pets</Link>
+              <Link href="/shop" className="text-indigo-600 font-medium">Product</Link>
             </nav>
 
             <div className="flex items-center gap-3">
               {user ? (
                 <>
-                  <span className="hidden sm:inline text-sm text-slate-600">
-                    {user.email}
-                  </span>
+                  <Link
+                    href="/profile"
+                    className="px-4 py-2 text-sm font-medium text-indigo-600 border border-indigo-600 rounded-lg hover:bg-indigo-50 transition"
+                  >
+                    Profile
+                  </Link>
                   <button
                     onClick={handleLogout}
                     className="px-4 py-2 text-sm font-medium text-red-600 border border-red-200 rounded-lg hover:bg-red-50 transition"

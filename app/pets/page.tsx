@@ -18,6 +18,19 @@ type Pet = {
   status: string;
 };
 
+const petImageMap: Record<string, string> = {
+  dog: "/GoldenRetriever.png",
+  cat: "/AmericanShorthair.png",
+  fish: "/GoldenFish.png",
+  rabbit: "/NetherlandDwarf.png",
+  bird: "/parrot-budgie.png",
+};
+
+const getPetImage = (pet: Pet) => {
+  if (pet.image_url) return pet.image_url;
+  return petImageMap[pet.species?.toLowerCase()] ?? "/GoldenRetriever.png";
+};
+
 export default function PetsPage() {
   const router = useRouter();
   const supabase = createClient();
@@ -223,17 +236,11 @@ export default function PetsPage() {
               >
                 {/* Image */}
                 <div className="aspect-square bg-slate-100 overflow-hidden">
-                  {pet.image_url ? (
-                    <img
-                      src={pet.image_url}
-                      alt={pet.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-5xl text-slate-300">
-                      🐾
-                    </div>
-                  )}
+                  <img
+                    src={getPetImage(pet)}
+                    alt={pet.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                  />
                 </div>
 
                 {/* Info */}
